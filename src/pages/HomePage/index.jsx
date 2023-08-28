@@ -15,7 +15,6 @@ export const HomePage = () => {
    const [value, setValue] = useState("");
 
 
-   // useEffect montagem - carrega os produtos da API e joga em productList
    useEffect(() => {
       const getProducts = async () => {
          try {
@@ -31,14 +30,14 @@ export const HomePage = () => {
        getProducts()
    },[])
 
-   // adição, exclusão, e exclusão geral do carrinho
-
    const addToCart = (newProduct) => {
-      if(cartList.includes ((product) => product.id === newProduct.id)){
+   
+      if(cartList.some ((product) => product.id === newProduct.id)){
          toast.info("Este item ja foi adicionado!")
       } else {
-         setCartList[[...cartList, newProduct]]
+         setCartList([...cartList,newProduct])
          toast.success("Item adicionado com sucesso!")
+
       }
    }
 
@@ -50,10 +49,9 @@ export const HomePage = () => {
    
    const removeAllFromCart = () => {
       setCartList([])
-      toast.success("Produto removido com sucesso!")
+      toast.success("Produtos removidos com sucesso!")
    }
    
-   // useEffect atualização - salva os produtos no localStorage (carregar no estado)
 
    useEffect(() => {
       if (cartList.length > 0){
@@ -61,33 +59,32 @@ export const HomePage = () => {
       }
    },[cartList])
 
-   // renderizações condições e o estado para exibir ou não o carrinho
 
-
-   // filtro de busca
 
    const research = productList.filter((product) => product.name.toUpperCase().includes(value.toUpperCase()))
 
-   // estilizar tudo com sass de forma responsiva
-   
+
    
 
    return (
       <>
          <Header 
+         value = {value}
+         setValue={setValue}
          setIsOpen={setIsOpen}
          setCount= {setCount}
          research={research}
+         cartList={cartList}
          />
          <main>
             <ProductList 
             productList = {productList}
             addToCart = {addToCart}
-           
-
              />
             {isOpen?
             <CartModal
+            setCount={setCount}
+            count={count}
             cartList={cartList}
             setIsOpen={setIsOpen}
             removeFromCart={removeFromCart}

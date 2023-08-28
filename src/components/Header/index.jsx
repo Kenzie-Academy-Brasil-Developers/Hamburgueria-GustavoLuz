@@ -3,8 +3,15 @@ import Logo from "../../assets/Logo.svg";
 import { MdSearch, MdShoppingCart } from "react-icons/md";
 import style from "./style.module.scss"
 
-export const Header = ({value, setValue, setIsOpen, research}) => {
+export const Header = ({value, setValue, setIsOpen, research, cartList}) => {
+   
    const openModal = () => setIsOpen(true)
+
+   const submit = (event) => {
+      event.preventDefault()
+      research(value)
+
+   }
 
    return (
 
@@ -15,23 +22,18 @@ export const Header = ({value, setValue, setIsOpen, research}) => {
                   <img src={Logo} alt="Logo Kenzie Burguer" />
                   <button className= {style.cart} onClick={() => openModal()}>
                      <MdShoppingCart size={21} />
-                     <span>0</span>
-                     {/* <span>{cartList.length}</span> */}
+                     <span>{cartList.length}</span>
                   </button>
                </div>
                <div >
-                  <form>
+                  <form onSubmit={submit} >
                      <input
                         type="text"
                         value={value}
-                        onChange={(e) => setValue(e.target.value)}
                         placeholder="Digitar pesquisa"
+                        onChange={(e) => setValue(e.target.value)}
                      />
-                     <button type="submit" 
-                     onClick={(event) => {
-                        event.preventDefault()
-                        // research(value)
-                     }}>
+                     <button type="submit">
                         <MdSearch size={15} />
                      </button>
                   </form>

@@ -1,6 +1,7 @@
 import style from "./style.module.scss"
 
 export const ProductCard = ({ product, addToCart }) => {
+ 
     return(
         <li className={style.containerCard} >
             <div className={style.containerImg}>
@@ -12,7 +13,6 @@ export const ProductCard = ({ product, addToCart }) => {
                 <span className={style.price}>{product.price.toLocaleString('pt-BR', { style: "currency", currency: "BRL"})}</span>
                 <button onClick={() => addToCart(product)}>Adicionar</button>
             </div>
-      
         </li>
     )
 }
