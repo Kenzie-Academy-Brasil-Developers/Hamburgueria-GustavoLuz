@@ -13,6 +13,7 @@ export const HomePage = () => {
    const [isOpen, setIsOpen] = useState(false);
    const [count, setCount] = useState(0);
    const [value, setValue] = useState("");
+   const [search, setSearch] = useState("")
 
 
    useEffect(() => {
@@ -61,7 +62,10 @@ export const HomePage = () => {
 
 
 
-   const research = productList.filter((product) => product.name.toUpperCase().includes(value.toUpperCase()))
+   const researchList =  productList.filter((product) => product.name.toUpperCase().includes(search.toUpperCase()))
+
+
+   const renderResearchList = search ? researchList : productList;
 
 
    
@@ -73,12 +77,12 @@ export const HomePage = () => {
          setValue={setValue}
          setIsOpen={setIsOpen}
          setCount= {setCount}
-         research={research}
+         setSearch={setSearch}
          cartList={cartList}
          />
          <main>
             <ProductList 
-            productList = {productList}
+            renderResearchList = {renderResearchList}
             addToCart = {addToCart}
              />
             {isOpen?

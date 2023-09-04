@@ -3,13 +3,14 @@ import Logo from "../../assets/Logo.svg";
 import { MdSearch, MdShoppingCart } from "react-icons/md";
 import style from "./style.module.scss"
 
-export const Header = ({value, setValue, setIsOpen, research, cartList}) => {
+export const Header = ({value, setValue, setIsOpen, setSearch, cartList}) => {
    
    const openModal = () => setIsOpen(true)
 
    const submit = (event) => {
       event.preventDefault()
-      research(value)
+      setSearch(value)
+      setValue("")
 
    }
 
